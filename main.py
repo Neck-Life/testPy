@@ -22,8 +22,6 @@ class AirpodsCalMovingAvgZupt:
         self.is_moving = False
         self.stop_flag = False
         self.is_ready = 0
-        self.cutoff_frequency = 5.0
-        self.sample_rate = 25.0
 
     def get_position(self, limit_value=None):
         if limit_value is None:
@@ -151,25 +149,27 @@ def process_csv_data(file_path):
         timestamps.append(timestamp)
         accel_data.append(airpods_processor.final_accelometers[-1])
         velocity_data.append(airpods_processor.velocities[-1])
-        position_data.append(airpods_processor.positions[-1])
+        # position_data.append(airpods_processor.positions[-1])
+        position_data.append(airpods_processor.stable_positions[-1])
 
     # 가속도, 속도, 위치 그래프 그리기
-    fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+    fig, axs = plt.subplots(3, 1, figsize=(8, 10))
 
-    axs[0].plot(timestamps, accel_data, label="Acceleration")
+    axs[0].plot(range(len(timestamps)), accel_data, label="Acceleration")
     axs[0].set_title('Acceleration over Time')
     axs[0].set_ylabel('Acceleration (g)')
     axs[0].legend()
 
-    axs[1].plot(timestamps, velocity_data, label="Velocity", color='orange')
+    axs[1].plot(range(len(timestamps)), velocity_data, label="Velocity", color='orange')
     axs[1].set_title('Velocity over Time')
     axs[1].set_ylabel('Velocity (m/s)')
     axs[1].legend()
 
-    axs[2].plot(timestamps, position_data, label="Position", color='green')
+    axs[2].plot(range(len(timestamps)), position_data, label="Position", color='green')
     axs[2].set_title('Position over Time')
     axs[2].set_ylabel('Position (m)')
     axs[2].set_xlabel('Time (s)')
+    axs[2].set_ylim(-0.01, 0.02)
     axs[2].legend()
 
     plt.tight_layout()
@@ -178,5 +178,6 @@ def process_csv_data(file_path):
 
 # CSV 파일에서 데이터 처리
 if __name__ == "__main__":
-    file_path = "dummy1.csv"  # 센서 데이터가 저장된 CSV 파일 경로
-    process_csv_data(file_path)
+    file_paths = ["data5.csv", "data4.csv"]  # 센서 데이터가 저장된 CSV 파일 경로
+    for file_path in file_paths:
+        process_csv_data(file_path)
