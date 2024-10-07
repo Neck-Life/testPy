@@ -165,7 +165,8 @@ def process_csv_data(file_path):
     axs[1].set_ylabel('Velocity (m/s)')
     axs[1].legend()
 
-    axs[2].plot(range(len(timestamps)), position_data, label="Position", color='green')
+    axs[2].plot(timestamps, position_data, label="Position", color='green')
+    # axs[2].plot(range(len(timestamps)), position_data, label="Position", color='green')
     axs[2].set_title('Position over Time')
     axs[2].set_ylabel('Position (m)')
     axs[2].set_xlabel('Time (s)')
@@ -178,6 +179,6 @@ def process_csv_data(file_path):
 
 # CSV 파일에서 데이터 처리
 if __name__ == "__main__":
-    file_paths = ["data5.csv", "data4.csv"]  # 센서 데이터가 저장된 CSV 파일 경로
+    file_paths = ["data4.csv", "data5.csv", "motion_data_Wednesday, September 25, 2024 at 2:05:18 AM Korean Standard Time.csv"]  # 센서 데이터가 저장된 CSV 파일 경로
     for file_path in file_paths:
         process_csv_data(file_path)
