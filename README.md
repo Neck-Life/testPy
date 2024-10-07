@@ -6,3 +6,7 @@
 ### 사용법
 1. main.py파일에서 불러올 csv파일명 지정
 2. main.py파일 실행
+
+### 스트레칭 3D애니메이션 사용법
+1. strectch_main.py파일에서 불러올 csv파일명 지정
+2. strectch_main.py파일 실행
